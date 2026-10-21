@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { useCinematicScroll } from '@/components/SmoothScrollProvider';
 
 interface KineticTextLinesProps {
   className?: string;
@@ -28,18 +27,69 @@ const LINE_2_ITEMS = [
 ];
 
 export function KineticTextLines({ className = '' }: KineticTextLinesProps) {
-  const { velocity } = useCinematicScroll();
+  const line1Ref = useRef<HTMLDivElement>(null);
+  const line2Ref = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Calm, steady marquee speed with gentle scroll responsiveness
+  // Silky smooth scroll-responsive kinetic animation (Web Animations API)
   useEffect(() => {
-    if (!sectionRef.current) return;
-    const absV = Math.abs(velocity);
-    // Subtle acceleration during scrolling (at most 15% boost), base speed 80s/90s
-    const factor = Math.max(0.85, 1 - Math.min(absV / 300, 0.15));
-    sectionRef.current.style.setProperty('--mq-dur-1', `${80 * factor}s`);
-    sectionRef.current.style.setProperty('--mq-dur-2', `${90 * factor}s`);
-  }, [velocity]);
+    let lastScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
+    let targetSpeed = 1.0;
+    let currentSpeed = 1.0;
+    let rafId: number;
+
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      const delta = currentY - lastScrollY;
+      lastScrollY = currentY;
+
+      // Scroll speed responsiveness: accelerates forward when scrolling down,
+      // and gently slows / reverses when scrolling up
+      const boost = delta * 0.04;
+      targetSpeed = Math.max(-2.5, Math.min(4.5, 1.0 + boost));
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      const boost = e.deltaY * 0.015;
+      targetSpeed = Math.max(-2.5, Math.min(4.5, 1.0 + boost));
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('wheel', onWheel, { passive: true });
+
+    const loop = () => {
+      // Natural fluid decay back to cruising speed (1.0)
+      targetSpeed += (1.0 - targetSpeed) * 0.05;
+
+      // Dampened interpolation for smooth 60/120fps physics
+      currentSpeed += (targetSpeed - currentSpeed) * 0.1;
+
+      // Apply dynamic playbackRate to tracks without stopping or restarting
+      if (line1Ref.current && typeof line1Ref.current.getAnimations === 'function') {
+        const anims1 = line1Ref.current.getAnimations();
+        for (let i = 0; i < anims1.length; i++) {
+          anims1[i].playbackRate = currentSpeed;
+        }
+      }
+
+      if (line2Ref.current && typeof line2Ref.current.getAnimations === 'function') {
+        const anims2 = line2Ref.current.getAnimations();
+        for (let i = 0; i < anims2.length; i++) {
+          anims2[i].playbackRate = currentSpeed;
+        }
+      }
+
+      rafId = requestAnimationFrame(loop);
+    };
+
+    rafId = requestAnimationFrame(loop);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('wheel', onWheel);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   return (
     <section
@@ -49,7 +99,7 @@ export function KineticTextLines({ className = '' }: KineticTextLinesProps) {
     >
       {/* Line 1: Forward Moving Strip */}
       <div className="kinetic-text-strip" id="kinetic-line-1">
-        <div className="kinetic-text-track kinetic-text-track--left">
+        <div ref={line1Ref} className="kinetic-text-track kinetic-text-track--left">
           <div className="kinetic-text-group">
             {LINE_1_ITEMS.map((item, idx) => (
               <React.Fragment key={`l1-a-${idx}`}>
@@ -76,7 +126,7 @@ export function KineticTextLines({ className = '' }: KineticTextLinesProps) {
 
       {/* Line 2: Counter-Moving Outline Strip */}
       <div className="kinetic-text-strip is-secondary" id="kinetic-line-2">
-        <div className="kinetic-text-track kinetic-text-track--right is-outline-track">
+        <div ref={line2Ref} className="kinetic-text-track kinetic-text-track--right is-outline-track">
           <div className="kinetic-text-group">
             {LINE_2_ITEMS.map((item, idx) => (
               <React.Fragment key={`l2-a-${idx}`}>

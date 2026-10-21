@@ -1654,9 +1654,6 @@ details[open] .faq-summary-nth::after {
   will-change: transform;
 }
 
-.marquee-track:hover {
-  animation-play-state: paused;
-}
 
 .marquee-items {
   display: flex;
@@ -3517,9 +3514,6 @@ html {
   display: flex;
 }
 
-.kinetic-text-strip:hover .kinetic-text-track {
-  animation-play-state: paused;
-}
 
 .kinetic-text-strip.is-secondary {
   padding-top: 0;
