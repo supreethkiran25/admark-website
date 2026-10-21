@@ -3,12 +3,12 @@ import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { SmoothScrollProvider } from '@/components/SmoothScrollProvider';
+import { StudioWheeler } from '@/components/StudioWheeler';
 import { JsonLd } from '@/components/JsonLd';
 import { ScrollProgressBar } from '@/components/ScrollProgressBar';
 import { WhatsAppWidget } from '@/components/WhatsAppWidget';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
-import { CinematicSmoothScroll } from '@/components/CinematicSmoothScroll';
-import { SpinningWheelerBadge } from '@/components/SpinningWheelerBadge';
 import { COMPANY } from '@/lib/data';
 
 export const metadata: Metadata = {
@@ -89,17 +89,18 @@ export default function RootLayout({
       </head>
       <body>
         <ThemeProvider>
-          <CinematicSmoothScroll />
-          <ScrollProgressBar />
-          <a href="#main-content" className="sr-only">
-            Skip to main content
-          </a>
-          <Header />
-          {children}
-          <Footer />
-          <SpinningWheelerBadge />
-          <WhatsAppWidget />
-          <ScrollToTopButton />
+          <SmoothScrollProvider>
+            <ScrollProgressBar />
+            <a href="#main-content" className="sr-only">
+              Skip to main content
+            </a>
+            <Header />
+            {children}
+            <Footer />
+            <StudioWheeler variant="floating" />
+            <WhatsAppWidget />
+            <ScrollToTopButton />
+          </SmoothScrollProvider>
         </ThemeProvider>
       </body>
     </html>

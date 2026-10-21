@@ -662,7 +662,6 @@ export interface CaseStudy {
   headline: string;
   industry: string;
   type: string;
-  featured?: boolean;
   scope: string[];
   url?: string;
   quote?: string;
