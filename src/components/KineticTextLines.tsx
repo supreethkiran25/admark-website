@@ -31,59 +31,68 @@ export function KineticTextLines({ className = '' }: KineticTextLinesProps) {
   const line2Ref = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Silky smooth scroll-responsive kinetic animation (Web Animations API)
+  // High-performance GPU RAF transform loop:
+  // - 100% continuous motion that NEVER stops when cursor hovers on any word
+  // - Real-time scroll and wheel speed responsiveness with smooth momentum decay
   useEffect(() => {
     let lastScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
-    let targetSpeed = 1.0;
-    let currentSpeed = 1.0;
+    let targetSpeedMultiplier = 1.0;
+    let currentSpeedMultiplier = 1.0;
     let rafId: number;
+
+    // Line 1: moves to the left (50% repeat cycle in 80s)
+    const baseSpeed1 = 50 / (80 * 1000); // % per millisecond
+    let pos1 = 0;
+
+    // Line 2: moves to the right (50% repeat cycle in 90s)
+    const baseSpeed2 = 50 / (90 * 1000); // % per millisecond
+    let pos2 = -50;
+
+    let lastTime = performance.now();
 
     const onScroll = () => {
       const currentY = window.scrollY;
       const delta = currentY - lastScrollY;
       lastScrollY = currentY;
 
-      // Scroll speed responsiveness: accelerates forward when scrolling down,
-      // and gently slows / reverses when scrolling up
-      const boost = delta * 0.04;
-      targetSpeed = Math.max(-2.5, Math.min(4.5, 1.0 + boost));
+      // Boost speed on scroll down; decelerate or reverse on scroll up
+      const boost = delta * 0.05;
+      targetSpeedMultiplier = Math.max(-2.5, Math.min(4.5, 1.0 + boost));
     };
 
     const onWheel = (e: WheelEvent) => {
       const boost = e.deltaY * 0.015;
-      targetSpeed = Math.max(-2.5, Math.min(4.5, 1.0 + boost));
+      targetSpeedMultiplier = Math.max(-2.5, Math.min(4.5, 1.0 + boost));
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('wheel', onWheel, { passive: true });
 
-    const loop = () => {
+    const loop = (now: number) => {
+      const dt = Math.min(now - lastTime, 50);
+      lastTime = now;
+
       // Natural fluid decay back to cruising speed (1.0)
-      targetSpeed += (1.0 - targetSpeed) * 0.05;
+      targetSpeedMultiplier += (1.0 - targetSpeedMultiplier) * 0.06;
+      currentSpeedMultiplier += (targetSpeedMultiplier - currentSpeedMultiplier) * 0.12;
 
-      // Dampened interpolation for smooth 60/120fps physics
-      currentSpeed += (targetSpeed - currentSpeed) * 0.1;
+      // Update Line 1 position (moving left, wraps cleanly at -50% and 0%)
+      pos1 -= baseSpeed1 * dt * currentSpeedMultiplier;
+      while (pos1 <= -50) pos1 += 50;
+      while (pos1 > 0) pos1 -= 50;
 
-      const applyPlayback = (track: HTMLDivElement | null) => {
-        if (!track || typeof track.getAnimations !== 'function') return;
-        try {
-          const anims = track.getAnimations();
-          for (let i = 0; i < anims.length; i++) {
-            const anim = anims[i];
-            if (anim.playState === 'paused') {
-              anim.play();
-            }
-            if (anim instanceof CSSAnimation) {
-              anim.playbackRate = currentSpeed;
-            }
-          }
-        } catch {
-          // ignore
-        }
-      };
+      // Update Line 2 position (moving right, wraps cleanly at 0% and -50%)
+      pos2 += baseSpeed2 * dt * currentSpeedMultiplier;
+      while (pos2 >= 0) pos2 -= 50;
+      while (pos2 < -50) pos2 += 50;
 
-      applyPlayback(line1Ref.current);
-      applyPlayback(line2Ref.current);
+      // Apply GPU-composited hardware transforms
+      if (line1Ref.current) {
+        line1Ref.current.style.transform = `translate3d(${pos1.toFixed(4)}%, 0, 0)`;
+      }
+      if (line2Ref.current) {
+        line2Ref.current.style.transform = `translate3d(${pos2.toFixed(4)}%, 0, 0)`;
+      }
 
       rafId = requestAnimationFrame(loop);
     };
