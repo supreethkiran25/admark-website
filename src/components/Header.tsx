@@ -32,6 +32,7 @@ export function Header({ onStartProject }: HeaderProps) {
     { label: 'Process', href: '/#process' },
     { label: 'About', href: '/about' },
     { label: 'Careers', href: '/careers' },
+    { label: 'Contact', href: '/#contact' },
   ];
 
   const handleStartProjectClick = (e: React.MouseEvent) => {
@@ -52,11 +53,11 @@ export function Header({ onStartProject }: HeaderProps) {
           {/* Brand Logo & Studio Name */}
           <Link href="/" className="ref-header-brand" aria-label="AdMark Digitals Home">
             <img
-              src="/admark-logo-live-cropped.png"
+              src="/admark-emblem.png"
               alt="AdMark Digitals Logo"
               className="ref-header-logo-img"
-              width={38}
-              height={38}
+              width={44}
+              height={28}
             />
             <span className="ref-header-brand-name">AdMark Digitals</span>
           </Link>
@@ -83,14 +84,6 @@ export function Header({ onStartProject }: HeaderProps) {
 
           {/* Right Action Buttons */}
           <div className="ref-header-actions">
-            <Link
-              href="/#contact"
-              onClick={handleStartProjectClick}
-              className="ref-header-contact-link"
-            >
-              Contact
-            </Link>
-
             <Link
               href="/#contact"
               onClick={handleStartProjectClick}
@@ -126,11 +119,11 @@ export function Header({ onStartProject }: HeaderProps) {
           <div className="ref-mobile-drawer__head">
             <Link href="/" className="ref-header-brand" onClick={() => setMobileOpen(false)}>
               <img
-                src="/admark-logo-live-cropped.png"
+                src="/admark-emblem.png"
                 alt="AdMark Digitals"
                 className="ref-header-logo-img"
-                width={38}
-                height={38}
+                width={44}
+                height={28}
               />
               <span className="ref-header-brand-name">{COMPANY.name}</span>
             </Link>

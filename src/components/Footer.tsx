@@ -26,11 +26,11 @@ export function Footer() {
           <div className="footer-ref__brand-col">
             <Link href="/" className="footer-ref__logo-link">
               <img
-                src="/admark-logo-live-cropped.png"
+                src="/admark-emblem.png"
                 alt="AdMark Digitals"
                 className="footer-ref__logo-img"
-                width={36}
-                height={36}
+                width={48}
+                height={30}
               />
               <span className="footer-ref__brand-name">AdMark Digitals</span>
             </Link>

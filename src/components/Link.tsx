@@ -19,7 +19,10 @@ export const Link = React.forwardRef<HTMLAnchorElement, UniversalLinkProps>(
       destination.startsWith('tel:');
 
     // In-page hash link
-    const isHash = destination.startsWith('#');
+    const isPureHash = destination.startsWith('#');
+    const isHomeHash = destination.startsWith('/#') && (typeof window !== 'undefined' && (window.location.pathname === '/' || window.location.pathname === ''));
+    const isHash = isPureHash || isHomeHash;
+    const hashId = isPureHash ? destination.slice(1) : (isHomeHash ? destination.slice(2) : '');
 
     if (isExternal || isHash) {
       return (
@@ -27,13 +30,12 @@ export const Link = React.forwardRef<HTMLAnchorElement, UniversalLinkProps>(
           ref={ref}
           href={destination}
           onClick={(e) => {
-            if (isHash && destination.length > 1) {
-              const target = document.getElementById(destination.slice(1));
+            if (isHash && hashId) {
+              const target = document.getElementById(hashId);
               if (target) {
                 e.preventDefault();
                 target.scrollIntoView({ behavior: 'smooth' });
-                // Update URL hash without reload
-                window.history.pushState(null, '', destination);
+                window.history.pushState(null, '', `#${hashId}`);
               }
             }
             if (onClick) onClick(e);
