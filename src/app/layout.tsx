@@ -4,7 +4,6 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { SmoothScrollProvider } from '@/components/SmoothScrollProvider';
-import { StudioWheeler } from '@/components/StudioWheeler';
 import { JsonLd } from '@/components/JsonLd';
 import { ScrollProgressBar } from '@/components/ScrollProgressBar';
 import { WhatsAppWidget } from '@/components/WhatsAppWidget';
@@ -97,7 +96,6 @@ export default function RootLayout({
             <Header />
             {children}
             <Footer />
-            <StudioWheeler variant="floating" />
             <WhatsAppWidget />
             <ScrollToTopButton />
           </SmoothScrollProvider>

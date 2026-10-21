@@ -3439,27 +3439,7 @@ details[open] .faq-summary-nth::after {
     width: 40px;
     height: 40px;
   }
-  .studio-wheeler--floating {
-    bottom: 18px;
-    left: 18px;
-    width: 84px;
-    height: 84px;
-  }
-  .cap-wheeler {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-  .cap-wheeler__dial-wrap {
-    height: 320px;
-  }
-  .cap-wheeler__dial {
-    width: 280px;
-    height: 280px;
-  }
-  .cap-wheeler__node {
-    padding: 6px 12px;
-    font-size: 11px;
-  }
+
 }
 
 /* ============================================================
@@ -3490,318 +3470,97 @@ html {
 }
 
 /* ============================================================
-   STUDIO ROTARY WHEELER (CINEMATIC SCROLL-REACTIVE BADGE)
+   KINETIC SPINNING TEXT LINES (DUAL OPPOSITE MARQUEES)
    ============================================================ */
-.studio-wheeler {
-  cursor: pointer;
-  user-select: none;
-  opacity: 0;
-  transform: scale(0.85);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.3s ease;
-}
-
-.studio-wheeler.is-visible {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.studio-wheeler--floating {
-  position: fixed;
-  bottom: 28px;
-  left: 28px;
-  z-index: 995;
-  width: 108px;
-  height: 108px;
-}
-
-.studio-wheeler--inline {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 32px auto 0;
-}
-
-.studio-wheeler:hover {
-  transform: scale(1.08);
-}
-
-.studio-wheeler__ring {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  will-change: transform;
-}
-
-.studio-wheeler__svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.studio-wheeler__text {
-  font-family: var(--font-mono), monospace;
-  font-size: 9.5px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  fill: #FFFFFF;
-  text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
-}
-
-.studio-wheeler__hub {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: rgba(18, 19, 24, 0.88);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.studio-wheeler:hover .studio-wheeler__hub {
-  border-color: rgba(229, 57, 53, 0.6);
-  background: rgba(26, 28, 36, 0.95);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.8), 0 0 24px rgba(229, 57, 53, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-.studio-wheeler__arrow {
-  color: var(--color-accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
-}
-
-.studio-wheeler__hub-label {
-  font-family: var(--font-mono), monospace;
-  font-size: 7.5px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: #A1A1A6;
-  margin-top: 1px;
-}
-
-.studio-wheeler__glow {
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(229, 57, 53, 0.18) 0%, transparent 70%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.studio-wheeler:hover .studio-wheeler__glow {
-  opacity: 1;
-}
-
-/* ============================================================
-   KINETIC SPINNING LINES WHEELER SECTION
-   ============================================================ */
-.spinning-lines-section {
-  padding: 120px 0 140px;
+.kinetic-text-section {
+  padding: 48px 0 64px;
   background: #08080A;
-  position: relative;
   overflow: hidden;
+  position: relative;
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
-}
-
-.spinning-lines-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 900px;
-  height: 480px;
-  background: radial-gradient(ellipse at top, rgba(229, 57, 53, 0.09), transparent 70%);
-  pointer-events: none;
-}
-
-.spinning-lines-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  max-width: 740px;
-  margin: 0 auto 56px;
-  position: relative;
-  z-index: 2;
-}
-
-.spinning-lines-title {
-  font-family: var(--font-display), 'Space Grotesk', sans-serif;
-  font-size: clamp(2rem, 4.5vw, 3.25rem);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  color: #FFFFFF;
-  margin-bottom: 18px;
-}
-
-.spinning-lines-title em {
-  font-family: var(--font-serif), 'Instrument Serif', Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  background: linear-gradient(135deg, #FF6B6B 0%, #E53935 60%, #FFFFFF 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.spinning-lines-desc {
-  font-family: var(--font-body), sans-serif;
-  font-size: 15px;
-  line-height: 1.65;
-  color: #A1A1AA;
-  max-width: 620px;
-  margin: 0 auto;
-}
-
-.spinning-lines-stage {
-  position: relative;
-  width: 100%;
-  max-width: 620px;
-  aspect-ratio: 1 / 1;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform-style: preserve-3d;
-  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
-}
-
-.spinning-lines-ambient {
-  position: absolute;
-  inset: 12%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(229, 57, 53, 0.16) 0%, rgba(229, 57, 53, 0.04) 40%, transparent 70%);
-  filter: blur(48px);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.spinning-lines-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  position: relative;
-  z-index: 2;
-  filter: drop-shadow(0 0 28px rgba(229, 57, 53, 0.18));
-  will-change: transform;
-}
-
-/* Floating Telemetry Badges */
-.lines-badge {
-  position: absolute;
-  z-index: 3;
-  padding: 8px 14px;
-  background: rgba(12, 13, 17, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  pointer-events: none;
   user-select: none;
-  transform: translateZ(30px);
 }
 
-.lines-badge--tl {
-  top: 18px;
-  left: 0;
+.kinetic-text-strip {
+  overflow: hidden;
+  padding: 16px 0;
+  width: 100%;
+  white-space: nowrap;
+  position: relative;
 }
 
-.lines-badge--tr {
-  top: 18px;
-  right: 0;
-  text-align: right;
+.kinetic-text-strip.is-secondary {
+  padding-top: 0;
 }
 
-.lines-badge--bl {
-  bottom: 18px;
-  left: 0;
+.kinetic-text-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  align-items: center;
 }
 
-.lines-badge--br {
-  bottom: 18px;
-  right: 0;
-  text-align: right;
+.kinetic-text-group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
-.lines-badge__label {
-  font-family: var(--font-mono), monospace;
-  font-size: 9.5px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #71717A;
+.kinetic-text-word {
+  font-family: var(--font-display), 'Inter Tight', 'Space Grotesk', -apple-system, sans-serif;
+  font-size: clamp(60px, 12vw, 185px);
+  font-weight: 300;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  padding-right: 0.35em;
+  color: #FFFFFF;
+  transition: color 0.25s ease, -webkit-text-stroke 0.25s ease;
+  display: inline-block;
 }
 
-.lines-badge__val {
-  font-family: var(--font-mono), monospace;
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: #F4F4F5;
+.kinetic-text-word.is-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.45);
+}
+
+.kinetic-text-track.is-outline-track .kinetic-text-word {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.35);
+}
+
+.kinetic-text-word:hover {
+  color: #E53935 !important;
+  -webkit-text-stroke: 1.5px #E53935 !important;
+}
+
+.kinetic-text-dot {
+  font-style: normal;
+  padding-right: 0.35em;
+  font-size: clamp(40px, 8vw, 110px);
+  color: var(--color-accent);
+  opacity: 0.75;
+  line-height: 1;
+  display: inline-block;
+  user-select: none;
 }
 
 @media (max-width: 768px) {
-  .spinning-lines-section {
-    padding: 80px 0 100px;
+  .kinetic-text-section {
+    padding: 32px 0 44px;
   }
-
-  .spinning-lines-stage {
-    max-width: 360px;
+  .kinetic-text-strip {
+    padding: 8px 0;
   }
-
-  .lines-badge {
-    padding: 6px 10px;
+  .kinetic-text-word {
+    font-size: clamp(44px, 13vw, 76px);
+    letter-spacing: -0.04em;
   }
-
-  .lines-badge__label {
-    font-size: 8.5px;
+  .kinetic-text-word.is-outline,
+  .kinetic-text-track.is-outline-track .kinetic-text-word {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.45);
   }
-
-  .lines-badge__val {
-    font-size: 10px;
-  }
-
-  .lines-badge--tl {
-    top: 4px;
-    left: 4px;
-  }
-
-  .lines-badge--tr {
-    top: 4px;
-    right: 4px;
-  }
-
-  .lines-badge--bl {
-    bottom: 4px;
-    left: 4px;
-  }
-
-  .lines-badge--br {
-    bottom: 4px;
-    right: 4px;
+  .kinetic-text-dot {
+    font-size: clamp(28px, 9vw, 48px);
   }
 }
