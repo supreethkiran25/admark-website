@@ -64,20 +64,26 @@ export function KineticTextLines({ className = '' }: KineticTextLinesProps) {
       // Dampened interpolation for smooth 60/120fps physics
       currentSpeed += (targetSpeed - currentSpeed) * 0.1;
 
-      // Apply dynamic playbackRate to tracks without stopping or restarting
-      if (line1Ref.current && typeof line1Ref.current.getAnimations === 'function') {
-        const anims1 = line1Ref.current.getAnimations();
-        for (let i = 0; i < anims1.length; i++) {
-          anims1[i].playbackRate = currentSpeed;
+      const applyPlayback = (track: HTMLDivElement | null) => {
+        if (!track || typeof track.getAnimations !== 'function') return;
+        try {
+          const anims = track.getAnimations();
+          for (let i = 0; i < anims.length; i++) {
+            const anim = anims[i];
+            if (anim.playState === 'paused') {
+              anim.play();
+            }
+            if (anim instanceof CSSAnimation) {
+              anim.playbackRate = currentSpeed;
+            }
+          }
+        } catch {
+          // ignore
         }
-      }
+      };
 
-      if (line2Ref.current && typeof line2Ref.current.getAnimations === 'function') {
-        const anims2 = line2Ref.current.getAnimations();
-        for (let i = 0; i < anims2.length; i++) {
-          anims2[i].playbackRate = currentSpeed;
-        }
-      }
+      applyPlayback(line1Ref.current);
+      applyPlayback(line2Ref.current);
 
       rafId = requestAnimationFrame(loop);
     };

@@ -3563,6 +3563,23 @@ html {
   cursor: default;
 }
 
+.kinetic-text-section,
+.kinetic-text-strip,
+.kinetic-text-track,
+.kinetic-text-group,
+.kinetic-text-word,
+.kinetic-text-dot {
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.kinetic-text-strip:hover .kinetic-text-track,
+.kinetic-text-track:hover,
+.kinetic-text-word:hover {
+  animation-play-state: running !important;
+}
+
 .kinetic-text-word.is-outline {
   color: transparent;
   -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.4);
@@ -3571,11 +3588,6 @@ html {
 .kinetic-text-track.is-outline-track .kinetic-text-word {
   color: transparent;
   -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.35);
-}
-
-.kinetic-text-word:hover {
-  color: var(--color-accent) !important;
-  -webkit-text-stroke: 1.5px var(--color-accent) !important;
 }
 
 .kinetic-text-dot {
