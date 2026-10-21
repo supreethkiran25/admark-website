@@ -29,76 +29,38 @@ const LINE_2_ITEMS = [
 
 export function KineticTextLines({ className = '' }: KineticTextLinesProps) {
   const { velocity } = useCinematicScroll();
-  const track1Ref = useRef<HTMLDivElement>(null);
-  const track2Ref = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
-  const pos1Ref = useRef(0);
-  const pos2Ref = useRef(0);
-  const rafId = useRef<number | null>(null);
-
+  // Speed up marquee duration based on scroll velocity
   useEffect(() => {
-    let lastTime = performance.now();
-
-    const animate = (now: number) => {
-      const dt = Math.min((now - lastTime) / 1000, 0.1);
-      lastTime = now;
-
-      // Base speeds + momentum boost from smooth scroll
-      const scrollBoost = Math.abs(velocity) * 0.18;
-      const speed1 = 45 + scrollBoost;
-      const speed2 = 40 + scrollBoost;
-
-      // Track 1 moves Left
-      pos1Ref.current -= speed1 * dt;
-      // Track 2 moves Right
-      pos2Ref.current += speed2 * dt;
-
-      if (track1Ref.current) {
-        const halfWidth = track1Ref.current.scrollWidth / 2;
-        if (halfWidth > 0) {
-          if (pos1Ref.current <= -halfWidth) {
-            pos1Ref.current += halfWidth;
-          }
-          track1Ref.current.style.transform = `translate3d(${pos1Ref.current}px, 0, 0)`;
-        }
-      }
-
-      if (track2Ref.current) {
-        const halfWidth = track2Ref.current.scrollWidth / 2;
-        if (halfWidth > 0) {
-          if (pos2Ref.current >= 0) {
-            pos2Ref.current -= halfWidth;
-          }
-          track2Ref.current.style.transform = `translate3d(${pos2Ref.current}px, 0, 0)`;
-        }
-      }
-
-      rafId.current = requestAnimationFrame(animate);
-    };
-
-    rafId.current = requestAnimationFrame(animate);
-
-    return () => {
-      if (rafId.current) cancelAnimationFrame(rafId.current);
-    };
+    if (!sectionRef.current) return;
+    const absV = Math.abs(velocity);
+    // Base duration ~38s, speeds up to 10s during fast scroll
+    const factor = Math.max(0.25, 1 - Math.min(absV / 120, 0.75));
+    sectionRef.current.style.setProperty('--mq-dur-1', `${38 * factor}s`);
+    sectionRef.current.style.setProperty('--mq-dur-2', `${42 * factor}s`);
   }, [velocity]);
 
   return (
-    <section className={`kinetic-text-section ${className}`} aria-label="Kinetic Capability Lines">
+    <section
+      ref={sectionRef}
+      className={`kinetic-text-section ${className}`}
+      aria-label="Kinetic Capabilities Ticker"
+    >
       {/* Line 1: Forward Moving Strip */}
       <div className="kinetic-text-strip" id="kinetic-line-1">
-        <div className="kinetic-text-track" ref={track1Ref}>
+        <div className="kinetic-text-track kinetic-text-track--left">
           <div className="kinetic-text-group">
             {LINE_1_ITEMS.map((item, idx) => (
               <React.Fragment key={`l1-a-${idx}`}>
                 <span className={`kinetic-text-word ${item.outline ? 'is-outline' : ''}`}>
                   {item.text}
                 </span>
-                <em className="kinetic-text-dot">·</em>
+                <em className="kinetic-text-dot" aria-hidden="true">·</em>
               </React.Fragment>
             ))}
           </div>
-          {/* Seamless loop clone */}
+          {/* Seamless loop duplicate */}
           <div className="kinetic-text-group" aria-hidden="true">
             {LINE_1_ITEMS.map((item, idx) => (
               <React.Fragment key={`l1-b-${idx}`}>
@@ -114,18 +76,18 @@ export function KineticTextLines({ className = '' }: KineticTextLinesProps) {
 
       {/* Line 2: Counter-Moving Outline Strip */}
       <div className="kinetic-text-strip is-secondary" id="kinetic-line-2">
-        <div className="kinetic-text-track is-outline-track" ref={track2Ref}>
+        <div className="kinetic-text-track kinetic-text-track--right is-outline-track">
           <div className="kinetic-text-group">
             {LINE_2_ITEMS.map((item, idx) => (
               <React.Fragment key={`l2-a-${idx}`}>
                 <span className={`kinetic-text-word ${item.outline ? 'is-outline' : ''}`}>
                   {item.text}
                 </span>
-                <em className="kinetic-text-dot">·</em>
+                <em className="kinetic-text-dot" aria-hidden="true">·</em>
               </React.Fragment>
             ))}
           </div>
-          {/* Seamless loop clone */}
+          {/* Seamless loop duplicate */}
           <div className="kinetic-text-group" aria-hidden="true">
             {LINE_2_ITEMS.map((item, idx) => (
               <React.Fragment key={`l2-b-${idx}`}>
