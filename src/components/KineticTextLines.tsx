@@ -31,14 +31,14 @@ export function KineticTextLines({ className = '' }: KineticTextLinesProps) {
   const { velocity } = useCinematicScroll();
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Speed up marquee duration based on scroll velocity
+  // Calm, steady marquee speed with gentle scroll responsiveness
   useEffect(() => {
     if (!sectionRef.current) return;
     const absV = Math.abs(velocity);
-    // Base duration ~38s, speeds up to 10s during fast scroll
-    const factor = Math.max(0.25, 1 - Math.min(absV / 120, 0.75));
-    sectionRef.current.style.setProperty('--mq-dur-1', `${38 * factor}s`);
-    sectionRef.current.style.setProperty('--mq-dur-2', `${42 * factor}s`);
+    // Subtle acceleration during scrolling (at most 15% boost), base speed 80s/90s
+    const factor = Math.max(0.85, 1 - Math.min(absV / 300, 0.15));
+    sectionRef.current.style.setProperty('--mq-dur-1', `${80 * factor}s`);
+    sectionRef.current.style.setProperty('--mq-dur-2', `${90 * factor}s`);
   }, [velocity]);
 
   return (

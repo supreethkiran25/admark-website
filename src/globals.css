@@ -3480,8 +3480,8 @@ html {
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
   user-select: none;
-  --mq-dur-1: 38s;
-  --mq-dur-2: 42s;
+  --mq-dur-1: 80s;
+  --mq-dur-2: 90s;
 }
 
 .kinetic-text-strip {
@@ -3491,6 +3491,10 @@ html {
   white-space: nowrap;
   position: relative;
   display: flex;
+}
+
+.kinetic-text-strip:hover .kinetic-text-track {
+  animation-play-state: paused;
 }
 
 .kinetic-text-strip.is-secondary {
@@ -3505,11 +3509,11 @@ html {
 }
 
 .kinetic-text-track--left {
-  animation: mq-scroll-left var(--mq-dur-1, 38s) linear infinite;
+  animation: mq-scroll-left var(--mq-dur-1, 80s) linear infinite;
 }
 
 .kinetic-text-track--right {
-  animation: mq-scroll-right var(--mq-dur-2, 42s) linear infinite;
+  animation: mq-scroll-right var(--mq-dur-2, 90s) linear infinite;
 }
 
 @keyframes mq-scroll-left {
