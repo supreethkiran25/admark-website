@@ -1,8 +1,7 @@
-'use client';
 
 import React, { useEffect } from 'react';
-import { useParams } from 'next/navigation';
-import Link from 'next/link';
+import { useParams } from 'react-router-dom';
+import { Link } from '@/components/Link';
 import { SERVICES, PROJECTS } from '@/lib/data';
 import { CTASection } from '@/components/CTASection';
 import { FAQAccordion } from '@/components/FAQAccordion';

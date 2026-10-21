@@ -1,4 +1,3 @@
-'use client';
 
 import React, { useState } from 'react';
 import { METHODOLOGY_STAGES } from '@/lib/data';

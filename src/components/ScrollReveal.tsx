@@ -1,10 +1,9 @@
-'use client';
 
 import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { useLocation } from 'react-router-dom';
 
 export function ScrollRevealProvider() {
-  const pathname = usePathname();
+  const location = useLocation(); const pathname = location.pathname;
 
   useEffect(() => {
     // Select all elements marked for reveal

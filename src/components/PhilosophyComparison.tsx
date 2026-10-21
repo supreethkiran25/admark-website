@@ -1,4 +1,3 @@
-'use client';
 
 import React from 'react';
 import { PHILOSOPHY_COMPARISONS } from '@/lib/data';

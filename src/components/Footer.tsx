@@ -1,7 +1,6 @@
-'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/components/Link';
 
 export function Footer() {
   const [email, setEmail] = useState('');

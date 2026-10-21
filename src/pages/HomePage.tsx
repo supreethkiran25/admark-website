@@ -1,16 +1,14 @@
-'use client';
-
 import React, { useState } from 'react';
 import { HeroSection } from '@/components/HeroSection';
 import { BentoFeaturesSection } from '@/components/BentoFeaturesSection';
-import { InteractiveCapabilityWheel } from '@/components/InteractiveCapabilityWheel';
+import { KineticTextLines } from '@/components/KineticTextLines';
 import { SelectedWorkSection } from '@/components/SelectedWorkSection';
 import { ProcessSection } from '@/components/ProcessSection';
 import { AchievementsSection } from '@/components/AchievementsSection';
 import { FAQSection } from '@/components/FAQSection';
 import { ContactSection } from '@/components/ContactSection';
 
-export default function HomePage() {
+export function HomePage() {
   const [prefilledNote, setPrefilledNote] = useState('');
 
   const handleAskSubmit = (query: string) => {
@@ -29,19 +27,17 @@ export default function HomePage() {
       {/* 02. Bento Grid Features Section (2x2 Dashboard, Chart, Connect, Rank Cards) */}
       <BentoFeaturesSection />
 
-      {/* 03. Interactive Capability Wheel with Kinetic Spinning Lines */}
-      <InteractiveCapabilityWheel />
+      {/* 03. Kinetic Spinning Text Lines (Dual Continuous Moving Marquees) */}
+      <KineticTextLines />
 
       {/* 04. Selected Client Work (REXU Featured + Compact Case Studies) */}
       <SelectedWorkSection />
 
-      {/* 04. 6-Stage Engineering Delivery Process */}
+      {/* 05. 6-Stage Engineering Delivery Process */}
       <ProcessSection />
 
-      {/* 05. Achievements Section (3D Isometric Floating Glass Stat Cards) */}
+      {/* 06. Achievements Section (3D Isometric Floating Glass Stat Cards) */}
       <AchievementsSection />
-
-
 
       {/* 07. Two-Column Accordion FAQ Section */}
       <FAQSection />
@@ -51,3 +47,5 @@ export default function HomePage() {
     </main>
   );
 }
+
+export default HomePage;

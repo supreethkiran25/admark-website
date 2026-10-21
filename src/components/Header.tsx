@@ -1,8 +1,7 @@
-'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link } from '@/components/Link';
+import { useLocation } from 'react-router-dom';
 import { COMPANY } from '@/lib/data';
 
 interface HeaderProps {
@@ -12,7 +11,7 @@ interface HeaderProps {
 export function Header({ onStartProject }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+  const location = useLocation(); const pathname = location.pathname;
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

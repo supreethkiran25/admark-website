@@ -1,7 +1,6 @@
-'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Link } from '@/components/Link';
 import { CAREERS } from '@/lib/data';
 
 export default function CareersPage() {

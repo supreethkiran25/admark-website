@@ -1,7 +1,6 @@
-'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/components/Link';
 import { SERVICES } from '@/lib/data';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 

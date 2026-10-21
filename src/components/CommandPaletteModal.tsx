@@ -1,7 +1,6 @@
-'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
-import Link from 'next/link';
+import { Link } from '@/components/Link';
 import { SERVICES, COMPANY } from '@/lib/data';
 
 interface CommandModalProps {

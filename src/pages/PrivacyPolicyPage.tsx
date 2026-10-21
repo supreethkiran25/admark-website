@@ -1,7 +1,6 @@
-'use client';
 
 import React, { useEffect } from 'react';
-import Link from 'next/link';
+import { Link } from '@/components/Link';
 import { COMPANY } from '@/lib/data';
 
 export default function PrivacyPolicyPage() {
