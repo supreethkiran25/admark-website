@@ -112,6 +112,26 @@ export function StudioWheeler({ variant = 'floating' }: StudioWheelerProps) {
               d="M 70, 70 m -52, 0 a 52,52 0 1,1 104,0 a 52,52 0 1,1 -104,0"
             />
           </defs>
+
+          {/* Precision Spinning Radial Lines & Concentric Dashed Tracks */}
+          <circle cx="70" cy="70" r="40" fill="none" stroke="#FFFFFF" strokeWidth="0.75" strokeDasharray="3 4" strokeOpacity="0.35" />
+          <circle cx="70" cy="70" r="62" fill="none" stroke="#E53935" strokeWidth="0.75" strokeDasharray="2 6" strokeOpacity="0.4" />
+          {[0, 45, 90, 135, 180, 225, 270, 315].map((ang) => {
+            const rad = (ang * Math.PI) / 180;
+            return (
+              <line
+                key={ang}
+                x1={70 + 26 * Math.cos(rad)}
+                y1={70 + 26 * Math.sin(rad)}
+                x2={70 + 38 * Math.cos(rad)}
+                y2={70 + 38 * Math.sin(rad)}
+                stroke={ang % 90 === 0 ? '#E53935' : '#FFFFFF'}
+                strokeWidth={ang % 90 === 0 ? '1.2' : '0.75'}
+                strokeOpacity={ang % 90 === 0 ? '0.75' : '0.3'}
+              />
+            );
+          })}
+
           <text className="studio-wheeler__text">
             <textPath href="#wheelerCirclePath" startOffset="0%">
               {text}

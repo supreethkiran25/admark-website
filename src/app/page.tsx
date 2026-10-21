@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { HeroSection } from '@/components/HeroSection';
 import { BentoFeaturesSection } from '@/components/BentoFeaturesSection';
-import { CapabilityWheeler } from '@/components/CapabilityWheeler';
+import { SpinningLinesWheeler } from '@/components/SpinningLinesWheeler';
 import { SelectedWorkSection } from '@/components/SelectedWorkSection';
 import { ProcessSection } from '@/components/ProcessSection';
 import { AchievementsSection } from '@/components/AchievementsSection';
@@ -29,8 +29,8 @@ export default function HomePage() {
       {/* 02. Bento Grid Features Section (2x2 Dashboard, Chart, Connect, Rank Cards) */}
       <BentoFeaturesSection />
 
-      {/* 03. Interactive Capability Wheeler Section */}
-      <CapabilityWheeler />
+      {/* 03. Precision Kinetic Spinning Lines Wheeler */}
+      <SpinningLinesWheeler />
 
       {/* 04. Selected Client Work (REXU Featured + Compact Case Studies) */}
       <SelectedWorkSection />
