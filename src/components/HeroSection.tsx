@@ -51,7 +51,9 @@ export function HeroSection({ onAskSubmit }: HeroSectionProps) {
           <h1 className="min-hero__h1">
             <span className="min-hero__h1-line">We build</span>
             <span className="min-hero__h1-line min-hero__h1-line--accent">
-              <em>{ROTATING_PHRASES[phraseIndex]}</em>
+              <em key={phraseIndex} className="min-hero__accent-text">
+                {ROTATING_PHRASES[phraseIndex]}
+              </em>
             </span>
             <span className="min-hero__h1-line">that grow with you.</span>
           </h1>
@@ -87,7 +89,7 @@ export function HeroSection({ onAskSubmit }: HeroSectionProps) {
         <div className="min-hero__specs">
           <div className="min-hero__spec-col">
             <span className="min-hero__spec-num">01 / CLUTCH RATING</span>
-            <span className="min-hero__spec-val">★★★★★ 4.9/5 on Clutch · 25+ reviews</span>
+            <span className="min-hero__spec-val">★★★★★ 4.9/5 · 25+ reviews</span>
           </div>
 
           <div className="min-hero__spec-col">
@@ -101,8 +103,8 @@ export function HeroSection({ onAskSubmit }: HeroSectionProps) {
           </div>
 
           <div className="min-hero__spec-col">
-            <span className="min-hero__spec-num">04 / RETENTION & TRACK RECORD</span>
-            <span className="min-hero__spec-val">99.9% Client Retention · 2+ Years</span>
+            <span className="min-hero__spec-num">04 / CLIENT RETENTION</span>
+            <span className="min-hero__spec-val">99.9% Client Retention</span>
           </div>
         </div>
       </section>

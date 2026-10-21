@@ -18,6 +18,17 @@ export function Header({ onStartProject }: HeaderProps) {
   }, [pathname]);
 
   useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
+
+  useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
@@ -134,7 +145,10 @@ export function Header({ onStartProject }: HeaderProps) {
               onClick={() => setMobileOpen(false)}
               aria-label="Close menu"
             >
-              ✕
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
             </button>
           </div>
 
@@ -146,7 +160,8 @@ export function Header({ onStartProject }: HeaderProps) {
                 className="ref-mobile-drawer__link"
                 onClick={() => setMobileOpen(false)}
               >
-                {link.label}
+                <span>{link.label}</span>
+                <span className="ref-mobile-drawer__arrow">→</span>
               </Link>
             ))}
             <Link
@@ -157,12 +172,13 @@ export function Header({ onStartProject }: HeaderProps) {
                 handleStartProjectClick(e);
               }}
             >
-              Start a Project →
+              <span>Start a Project</span>
+              <span className="ref-mobile-drawer__cta-arrow">↗</span>
             </Link>
           </nav>
 
           <div className="ref-mobile-drawer__footer">
-            <p>Direct studio lines:</p>
+            <p>Direct studio lines</p>
             <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
             <a href={`tel:${COMPANY.phone1.replace(/\s+/g, '')}`}>{COMPANY.phone1}</a>
           </div>
