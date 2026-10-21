@@ -1903,9 +1903,9 @@ details[open] .faq-summary-nth::after {
 
 .ref-header-pill {
   pointer-events: auto;
-  max-width: 860px;
+  max-width: 880px;
   width: 100%;
-  height: 52px;
+  height: 56px;
   background: rgba(10, 11, 14, 0.76);
   backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
@@ -1915,12 +1915,12 @@ details[open] .faq-summary-nth::after {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 8px 0 16px;
+  padding: 0 10px 0 16px;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ref-header-wrap.is-scrolled .ref-header-pill {
-  height: 48px;
+  height: 50px;
   background: rgba(8, 9, 12, 0.88);
   border-color: rgba(255, 255, 255, 0.14);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.22);
@@ -1929,25 +1929,30 @@ details[open] .faq-summary-nth::after {
 .ref-header-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   text-decoration: none;
 }
 
 .ref-header-logo-img {
-  width: 26px;
-  height: 26px;
+  width: 38px;
+  height: 38px;
   border-radius: 6px;
   object-fit: contain;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, width 0.2s ease, height 0.2s ease;
+}
+
+.ref-header-wrap.is-scrolled .ref-header-logo-img {
+  width: 34px;
+  height: 34px;
 }
 
 .ref-header-brand:hover .ref-header-logo-img {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 .ref-header-brand-name {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', var(--font-display), sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.02em;
   color: #FFFFFF;

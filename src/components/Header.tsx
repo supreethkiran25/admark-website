@@ -55,8 +55,8 @@ export function Header({ onStartProject }: HeaderProps) {
               src="/admark-logo-live-cropped.png"
               alt="AdMark Digitals Logo"
               className="ref-header-logo-img"
-              width={26}
-              height={26}
+              width={38}
+              height={38}
             />
             <span className="ref-header-brand-name">AdMark Digitals</span>
           </Link>
@@ -129,8 +129,8 @@ export function Header({ onStartProject }: HeaderProps) {
                 src="/admark-logo-live-cropped.png"
                 alt="AdMark Digitals"
                 className="ref-header-logo-img"
-                width={28}
-                height={28}
+                width={38}
+                height={38}
               />
               <span className="ref-header-brand-name">{COMPANY.name}</span>
             </Link>
