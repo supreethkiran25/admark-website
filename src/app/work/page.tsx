@@ -14,7 +14,7 @@ export default function WorkPage() {
     document.title = 'Our Work — Client Projects & Systems | AdMark Digitals';
   }, []);
 
-  const featuredProject = PROJECTS.find((p) => p.featured);
+  const featuredProject = PROJECTS.find((p) => p.featured) || PROJECTS[0];
 
   const filteredProjects = useMemo(() => {
     return PROJECTS.filter((p) => {

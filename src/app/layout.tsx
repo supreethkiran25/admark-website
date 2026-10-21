@@ -7,6 +7,8 @@ import { JsonLd } from '@/components/JsonLd';
 import { ScrollProgressBar } from '@/components/ScrollProgressBar';
 import { WhatsAppWidget } from '@/components/WhatsAppWidget';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
+import { CinematicSmoothScroll } from '@/components/CinematicSmoothScroll';
+import { SpinningWheelerBadge } from '@/components/SpinningWheelerBadge';
 import { COMPANY } from '@/lib/data';
 
 export const metadata: Metadata = {
@@ -87,6 +89,7 @@ export default function RootLayout({
       </head>
       <body>
         <ThemeProvider>
+          <CinematicSmoothScroll />
           <ScrollProgressBar />
           <a href="#main-content" className="sr-only">
             Skip to main content
@@ -94,6 +97,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <SpinningWheelerBadge />
           <WhatsAppWidget />
           <ScrollToTopButton />
         </ThemeProvider>
